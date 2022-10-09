@@ -17,7 +17,6 @@ function Seo({ description, title, children }) {
           siteMetadata {
             title
             description
-            author
           }
         }
       }
