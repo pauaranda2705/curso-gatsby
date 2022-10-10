@@ -10,11 +10,11 @@ query ($slug: String!) {
   contentfulCursoDeGatsbyJs(slug: {eq: $slug}){
     titulo
     fechadePublicacion(formatString: "MMM Do, YYY")
-    body{
+    body {
       json
+      }
     }
   }
-}
 `
 
 
@@ -22,8 +22,8 @@ const Blog = (props) => {
   const options = {
     renderNode: {
       "embedded-asset-block": (node) => {
-        const alt = ''
-        const url = ''
+        const alt = node.data.target.fields.title['en-US']
+        const url = node.data.target.fields.file['en-US'].url
         return <img alt={alt} src={url}/>
       }
     }
@@ -31,10 +31,10 @@ const Blog = (props) => {
 
     return (
         <Layout>
-          <Head title={props.data.contentfulCursoDeGatsbyJs.title}/>
+          <Head title={props.data.contentfulCursoDeGatsbyJs.titulo}/>
             <h1>{props.data.contentfulCursoDeGatsbyJs.titulo}</h1>
             <p>{props.data.contentfulCursoDeGatsbyJs.fechadePublicacion}</p>
-          {documentToReactComponents(props.data.contentfulCursoDeGatsbyJs.body.json, options)}
+            {documentToReactComponents(props.data.contentfulCursoDeGatsbyJs.body.json, options)}
         </Layout>
     )
 }
